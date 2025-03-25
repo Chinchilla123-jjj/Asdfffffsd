@@ -1,20 +1,25 @@
-// Intentar acceder a objetos fuera del contexto del sandbox
-try {
-    const sandbox = window.open('', 'sandbox', 'width=200,height=100');
-    sandbox.document.write('<h1>Probando Sandbox</h1>');
-    sandbox.document.write('<button onclick="alert(1)">Prueba fuera del sandbox</button>');
-} catch (e) {
-    console.error("Error al intentar romper sandbox: ", e);
-}
-
-// Intentar escapar del sandbox y ejecutar código no autorizado
-try {
-    // Si tienes una vulnerabilidad que permite escribir en un contexto de un iframe o ventana separada,
-    // puedes intentar ejecutar código que escapa de la restricción.
-    var exploitTest = document.createElement('iframe');
-    exploitTest.src = 'javascript:alert("Vulnerabilidad detectada");';
-    document.body.appendChild(exploitTest);
-} catch (e) {
-    console.error("No se pudo crear el iframe: ", e);
-}
-111 111
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba de Sandbox</title>
+</head>
+<body>
+    <h1>Prueba de Sandbox en JavaScript</h1>
+    
+    <!-- Botón para mostrar alerta -->
+    <button onclick="testSandbox()">Prueba fuera del sandbox</button>
+    
+    <br><br>
+    
+    <!-- Botón para intentar una redirección fuera del sandbox -->
+    <button onclick="redirect()">Intentar redirigir fuera del sandbox</button>
+    
+    <br><br>
+    
+    <!-- Ejemplo de iframe con sandbox -->
+    <iframe src="about:blank" sandbox="allow-s
+        111
+        111
+        111
