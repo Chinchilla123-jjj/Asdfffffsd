@@ -8,7 +8,7 @@
 <body>
     <h1>Prueba de Sandbox en JavaScript</h1>
     
-    <!-- Botón para mostrar alerta -->
+    <!-- Botón para mostrar alerta fuera del sandbox -->
     <button onclick="testSandbox()">Prueba fuera del sandbox</button>
     
     <br><br>
@@ -19,7 +19,27 @@
     <br><br>
     
     <!-- Ejemplo de iframe con sandbox -->
-    <iframe src="about:blank" sandbox="allow-s
-        111
-        111
-        111
+    <iframe src="about:blank" sandbox="allow-scripts" id="myIframe" width="300" height="200"></iframe>
+    
+    <script>
+        // Función que se ejecuta cuando el primer botón es presionado
+        function testSandbox() {
+            // Mostrar un mensaje dentro del navegador
+            alert("1: Este código debería ejecutarse correctamente.");
+            
+            // Ahora vamos a intentar escribir en el iframe para ver si podemos modificar su contenido
+            let iframe = document.getElementById('myIframe');
+            let iframeDocument = iframe.contentWindow.document;
+            iframeDocument.open();
+            iframeDocument.write('<h1>Este es el contenido del iframe</h1>');
+            iframeDocument.close();
+        }
+        
+        // Función para intentar redirigir fuera del sandbox
+        function redirect() {
+            // Intentar redirigir la página a otro URL
+            window.location.href = 'http://example.com';
+        }
+    </script>
+</body>
+</html>
