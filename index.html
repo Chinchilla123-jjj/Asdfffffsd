@@ -3,42 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prueba de Sandbox</title>
+    <title>Prueba OOS y XSS</title>
 </head>
 <body>
-    <h1>Prueba de Sandbox en JavaScript</h1>
-    
-    <!-- Botón para mostrar alerta fuera del sandbox -->
-    <button onclick="testSandbox()">Prueba fuera del sandbox</button>
-    
-    <br><br>
-    
-    <!-- Botón para intentar una redirección fuera del sandbox -->
-    <button onclick="redirect()">Intentar redirigir fuera del sandbox</button>
-    
-    <br><br>
-    
-    <!-- Ejemplo de iframe con sandbox -->
-    <iframe src="about:blank" sandbox="allow-scripts" id="myIframe" width="300" height="200"></iframe>
-    
+    <h1>Simulación de Out-of-Sandbox (OOS) y XSS</h1>
+    <p>Haz clic en el botón para intentar hacer un OOS (simulación) y luego ejecutar un código malicioso (XSS) dentro de la misma página.</p>
+
+    <!-- Botón para intentar "saltar el sandbox" -->
+    <button id="oosButton">Intentar OOS</button>
+
+    <!-- Aquí se coloca un input vulnerable a XSS -->
+    <p>Introduce algo para inyectar código:</p>
+    <input type="text" id="xssInput" placeholder="Introduce tu script XSS aquí">
+    <button onclick="executeXSS()">Ejecutar XSS</button>
+
+    <div id="result"></div>
+
     <script>
-        // Función que se ejecuta cuando el primer botón es presionado
-        function testSandbox() {
-            // Mostrar un mensaje dentro del navegador
-            alert("1: Este código debería ejecutarse correctamente.");
-            
-            // Ahora vamos a intentar escribir en el iframe para ver si podemos modificar su contenido
-            let iframe = document.getElementById('myIframe');
-            let iframeDocument = iframe.contentWindow.document;
-            iframeDocument.open();
-            iframeDocument.write('<h1>Este es el contenido del iframe</h1>');
-            iframeDocument.close();
-        }
-        
-        // Función para intentar redirigir fuera del sandbox
-        function redirect() {
-            // Intentar redirigir la página a otro URL
-            window.location.href = 'http://example.com';
+        // Simulando un "Out-of-Sandbox" haciendo que el código sea ejecutado fuera de sus restricciones
+        document.getElementById('oosButton').addEventListener('click', function() {
+            // Intentamos cambiar el DOM de una manera "inesperada" para simular el OOS
+            document.body.style.backgroundColor = 'lightblue';
+            alert("¡Sandbox violado! Cambié el color de fondo.");
+        });
+
+        // Ejecutar código JavaScript malicioso (XSS) desde un input
+        function executeXSS() {
+            const userInput = document.getElementById('xssInput').value;
+            const resultDiv = document.getElementById('result');
+
+            // Inyectar el código del usuario (esto es un ejemplo de XSS)
+            // IMPORTANTE: Solo con fines educativos
+            resultDiv.innerHTML = userInput; // Inyecta el código malicioso (si lo hay) en el DOM
+
+            alert('Código XSS inyectado.');
         }
     </script>
 </body>
